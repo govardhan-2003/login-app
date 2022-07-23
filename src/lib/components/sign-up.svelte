@@ -3,7 +3,7 @@ import supabase from '$lib/supabase.js'
 let email = '';
 let password = '';
 const signUp = async() => {
-    const { user, session, error } = await supabase.auth.SignUp({
+    const { user, session, error } = await supabase.auth.signUp({
         email: email,
         password: password,
     });
