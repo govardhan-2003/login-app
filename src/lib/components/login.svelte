@@ -4,6 +4,7 @@ import { goto } from '$app/navigation';
 import {fade} from 'svelte/transition'
 let email = '';
 let password = '';
+let wrong_cred = false;
 const signIn = async() => {
     const { user, session, error } = await supabase.auth.signIn({
         email: email,
@@ -16,6 +17,7 @@ const signIn = async() => {
     }
     if(error){
         console.log(error);
+        wrong_cred = true;
     }
 }
 
@@ -26,6 +28,7 @@ const signIn = async() => {
     <input type="email" placeholder="email" bind:value={email}>
     <input type="password" placeholder="password" bind:value={password}>
     <button on:click={signIn}>LOGIN</button>
+    <p class:warning="{wrong_cred === true}">Wrong Credentials</p>
 </section>
 
 
@@ -68,5 +71,11 @@ const signIn = async() => {
         text-align: center;
         background-color: #EF2D56;
         color: white;
+    }
+    p{
+        display: none;
+    }
+    .warning{
+        display: block;
     }
 </style>
